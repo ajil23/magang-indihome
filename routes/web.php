@@ -26,9 +26,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' => ['auth']], function(){
     Route::group(['middleware' => ['logincheck:admin']], function(){
-        Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     });
     Route::group(['middleware' => ['logincheck:sales']], function(){
-        Route::get('sales', [SalesController::class, 'index'])->name('sales.index');
+        Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
     });
 });
