@@ -12,18 +12,16 @@ class LoginCheck
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string  $role
+     * @return mixed
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $role)
     {
-        if(!Auth::check()){
-            return redirect('login');
+        if (Auth::check() && Auth::user()->role === $role) {
+            return $next($request);
         }
-        $user = Auth::user();
-        $roles = Auth::user();
-
-        if($user->role == $roles)
-        return $next($request);
 
         return redirect('login')->with('error', 'Something wrong');
     }

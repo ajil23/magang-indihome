@@ -23,6 +23,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route('admin.index');
+        } elseif (auth()->user()->role === 'sales') {
+            return redirect()->route('sales.index');
+        }
+
+        // Redirect ke halaman default jika role tidak dikenal
+        return redirect('/home')->with('error', 'Role is not recognized.');
     }
 }
