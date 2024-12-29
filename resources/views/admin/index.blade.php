@@ -1337,12 +1337,7 @@
         <!-- / Bottom Row Widgets-->
 
         <!-- Footer -->
-        <footer class="  footer">
-            <p class="small text-muted m-0">All rights reserved | © 2021</p>
-            <p class="small text-muted m-0">Template created by <a href="https://www.pixelrocket.store/">PixelRocket</a>
-            </p>
-        </footer>
-
+        @include('admin.component.footer')
 
         <!-- Sidebar Menu Overlay-->
         <div class="menu-overlay-bg"></div>
