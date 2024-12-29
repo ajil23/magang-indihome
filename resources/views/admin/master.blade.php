@@ -71,6 +71,9 @@
     
     <!-- Theme JS -->
     <script src="./assets/js/theme.bundle.js"></script>
+
+    {{-- Additional js--}}
+    @yield('script')
 </body>
 
 </html>

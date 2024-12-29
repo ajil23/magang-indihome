@@ -5,7 +5,7 @@
             <div class="pb-6">
                 <!-- Mobile Logo-->
                 <div class="d-flex d-xl-none justify-content-between align-items-center border-bottom aside-header">
-                    <a class="navbar-brand lh-1 border-0 m-0 d-flex align-items-center" href="./index.html">
+                    <a class="navbar-brand lh-1 border-0 m-0 d-flex align-items-center" href="{{route('admin.index')}}">
                         <div class="d-flex align-items-center">
                             <svg class="f-w-5 me-2 text-primary d-flex align-self-center lh-1"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 203.58 182">
@@ -16,7 +16,7 @@
                                     d="M0,182H29.76a21.3,21.3,0,0,0,18.56-10.33,63.27,63.27,0,0,1,106.94,0A21.3,21.3,0,0,0,173.82,182h29.76c-22.66-50.84-49.5-80.34-101.79-80.34S22.66,131.16,0,182Z"
                                     fill="currentColor" fill-rule="evenodd" />
                             </svg>
-                            <span class="fw-black text-uppercase tracking-wide fs-6 lh-1">Apollo</span>
+                            <span class="fw-black text-uppercase tracking-wide fs-6 lh-1">Telkom</span>
                         </div>
                     </a>
                     <i
@@ -28,7 +28,7 @@
 
                     <!-- Dashboard Menu Section-->
                     <li class="menu-section mt-2">Menu</li>
-                    <li class="menu-item"><a class="d-flex align-items-center" href="./index.html">
+                    <li class="menu-item"><a class="d-flex align-items-center" href="{{route('admin.index')}}">
                             <span class="menu-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                     class="w-100">
@@ -68,7 +68,7 @@
                         <div class="collapse" id="collapseMenuItemPages">
                             <ul class="submenu">
                                 <li><a href="#">Data Sales</a></li>
-                                <li><a href="#">Sector Category</a></li>
+                                <li><a href="{{route('sector.index')}}">Sector Category</a></li>
                                 <li><a href="#">Transaction Type</a></li>
                             </ul>
                         </div>
