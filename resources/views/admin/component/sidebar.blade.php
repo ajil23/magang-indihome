@@ -5,7 +5,7 @@
             <div class="pb-6">
                 <!-- Mobile Logo-->
                 <div class="d-flex d-xl-none justify-content-between align-items-center border-bottom aside-header">
-                    <a class="navbar-brand lh-1 border-0 m-0 d-flex align-items-center" href="{{route('admin.index')}}">
+                    <a class="navbar-brand lh-1 border-0 m-0 d-flex align-items-center" href="{{ route('admin.index') }}">
                         <div class="d-flex align-items-center">
                             <svg class="f-w-5 me-2 text-primary d-flex align-self-center lh-1"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 203.58 182">
@@ -28,7 +28,7 @@
 
                     <!-- Dashboard Menu Section-->
                     <li class="menu-section mt-2">Menu</li>
-                    <li class="menu-item"><a class="d-flex align-items-center" href="{{route('admin.index')}}">
+                    <li class="menu-item"><a class="d-flex align-items-center" href="{{ route('admin.index') }}">
                             <span class="menu-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                     class="w-100">
@@ -68,8 +68,8 @@
                         <div class="collapse" id="collapseMenuItemPages">
                             <ul class="submenu">
                                 <li><a href="#">Data Sales</a></li>
-                                <li><a href="{{route('sector.index')}}">Sector Category</a></li>
-                                <li><a href="#">Transaction Type</a></li>
+                                <li><a href="{{ route('sector.index') }}">Sector Category</a></li>
+                                <li><a href="{{ route('transaction.index') }}">Transaction Type</a></li>
                             </ul>
                         </div>
                     </li>
@@ -100,7 +100,7 @@
                                 </svg>
                             </span>
                             <span class="menu-link">
-                                Sales Management
+                                Users 
                             </span>
                         </a>
                     </li>
