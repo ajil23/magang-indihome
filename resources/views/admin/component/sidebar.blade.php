@@ -67,7 +67,7 @@
                             <span class="menu-link">Sales</span></a>
                         <div class="collapse" id="collapseMenuItemPages">
                             <ul class="submenu">
-                                <li><a href="#">Data Sales</a></li>
+                                <li><a href="{{ route('data_sales.index') }}">Data Sales</a></li>
                                 <li><a href="{{ route('sector.index') }}">Sector Category</a></li>
                                 <li><a href="{{ route('transaction.index') }}">Transaction Type</a></li>
                             </ul>
