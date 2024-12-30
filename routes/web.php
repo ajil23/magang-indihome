@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\SectorController;
 use App\Http\Controllers\admin\TransactionTypeController;
+use App\Http\Controllers\admin\UserManagementController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SalesController;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/transaction-type/store', [TransactionTypeController::class, 'store'])->name('transaction.store');
         Route::put('/transaction-type/{id}', [TransactionTypeController::class, 'update'])->name('transaction.update');
         Route::delete('/transaction-type/{id}', [TransactionTypeController::class, 'delete'])->name('transaction.delete');
+
+        // user management
+        Route::get('user', [UserManagementController::class, 'index'])->name('user.index');
+        Route::post('user/store', [UserManagementController::class, 'store'])->name('user.store');
+        Route::put('user/{id}', [UserManagementController::class, 'update'])->name('user.update');
+        Route::delete('user/{id}', [UserManagementController::class, 'delete'])->name('user.delete');
     });
     Route::group(['middleware' => ['logincheck:sales']], function () {
         Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
