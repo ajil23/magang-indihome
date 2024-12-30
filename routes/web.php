@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\DataSalesController;
 use App\Http\Controllers\admin\SectorController;
 use App\Http\Controllers\admin\TransactionTypeController;
 use App\Http\Controllers\admin\UserManagementController;
@@ -49,6 +50,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('user/store', [UserManagementController::class, 'store'])->name('user.store');
         Route::put('user/{id}', [UserManagementController::class, 'update'])->name('user.update');
         Route::delete('user/{id}', [UserManagementController::class, 'delete'])->name('user.delete');
+        
+        // data sales
+        Route::get('data-sales', [DataSalesController::class, 'index'])->name('data_sales.index');
+        Route::post('data-sales/store', [DataSalesController::class, 'store'])->name('data_sales.store');
+        Route::put('data-sales/{id}', [DataSalesController::class, 'update'])->name('data_sales.update');
+        Route::delete('data-sales/{id}', [DataSalesController::class, 'delete'])->name('data_sales.delete');
     });
     Route::group(['middleware' => ['logincheck:sales']], function () {
         Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
