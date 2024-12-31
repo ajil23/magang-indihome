@@ -25,7 +25,7 @@
                 <div class="card-header justify-content-between align-items-center d-flex">
                     <h6 class="card-title m-0">Sales Visit</h6>
                     <!-- Button trigger modal -->
-                    <button class="btn btn-primary btn-sm">
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exportModal">
                         <i class="ri-download-fill align-bottom"></i> Export
                     </button>
                 </div>
@@ -43,7 +43,6 @@
                                     <th>Date</th>
                                     <th>Description</th>
                                     <th>Proof</th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,46 +59,6 @@
                                         <td class="text-muted">{{ $item->date }}</td>
                                         <td class="text-muted">{{ $item->description ? 'sudah' : 'belum' }}</td>
                                         <td class="text-muted">{{ $item->file ? 'sudah' : 'belum' }}</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button
-                                                    class="btn btn-link dropdown-toggle dropdown-toggle-icon fw-bold p-0"
-                                                    type="button" id="dropdownOrder-0" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <i class="ri-more-2-line"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown" aria-labelledby="dropdownOrder-0">
-                                                    <!-- Edit option -->
-                                                    <li>
-                                                        <a class="dropdown-item" href="javascript:void(0)" id="edit-btn"
-                                                            data-id="{{ $item->id }}"
-                                                            data-sales-id="{{ $item->data_sales_id }}"
-                                                            data-transaction-type-id="{{ $item->transaction_type_id }}"
-                                                            data-sector-id="{{ $item->sector_id }}"
-                                                            data-location="{{ $item->location }}"
-                                                            data-address="{{ $item->address }}"
-                                                            data-date="{{ $item->date }}" data-pic="{{ $item->pic }}"
-                                                            data-description="{{ $item->description }}"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#updateVisitModal">Edit</a>
-                                                    </li>
-
-                                                    <!-- Delete option -->
-                                                    <li>
-                                                        <form action="{{ route('visit.delete', $item->id) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('Are you sure you want to delete this visit?');">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="dropdown-item text-danger"
-                                                                style="border: none; background: none;">
-                                                                Delete
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -113,4 +72,58 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exportModalLabel">Export Sales Visit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Select the format for export:</p>
+                    <!-- Radio buttons for Export Options -->
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exportOption" id="excelOption" value="excel"
+                            checked>
+                        <label class="form-check-label" for="excelOption">
+                            Excel
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exportOption" id="pdfOption" value="pdf">
+                        <label class="form-check-label" for="pdfOption">
+                            PDF
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="exportConfirmBtn">Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('script')
+    <script>
+        // Menampilkan modal ketika tombol Export diklik
+        document.querySelector('.btn.btn-primary.btn-sm').addEventListener('click', function() {
+            var exportModal = new bootstrap.Modal(document.getElementById('exportModal'));
+            exportModal.show();
+        });
+
+        // Menangani proses export ketika tombol konfirmasi ditekan
+        document.getElementById('exportConfirmBtn').addEventListener('click', function() {
+            var selectedOption = document.querySelector('input[name="exportOption"]:checked').value;
+            if (selectedOption === 'excel') {
+                // Arahkan ke route export Excel
+                window.location.href = "{{ route('visit.export', ['format' => 'excel']) }}";
+            } else if (selectedOption === 'pdf') {
+                // Arahkan ke route export PDF
+                window.location.href = "{{ route('visit.export', ['format' => 'pdf']) }}";
+            }
+        });
+    </script>
 @endsection

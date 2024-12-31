@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
         
         // visit
         Route::get('recap-visit', [AdminVisitController::class, 'index'])->name('recap_visit.index');
+        Route::get('recap-visit/export/{format}', [AdminVisitController::class, 'export'])->name('visit.export');
     });
     Route::group(['middleware' => ['logincheck:sales']], function () {
         // dashboard
