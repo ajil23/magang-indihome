@@ -28,7 +28,7 @@
 
                     <!-- Dashboard Menu Section-->
                     <li class="menu-section mt-2">Menu</li>
-                    <li class="menu-item"><a class="d-flex align-items-center" href="./index.html">
+                    <li class="menu-item"><a class="d-flex align-items-center" href="{{route('sales.index')}}">
                             <span class="menu-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                     class="w-100">
@@ -50,7 +50,7 @@
 
                     <!-- Pages Menu Section-->
                     <li class="menu-section mt-4">Visit</li>
-                    <li class="menu-item"><a class="d-flex align-items-center" href="./index.html">
+                    <li class="menu-item"><a class="d-flex align-items-center" href="{{route('visit.index')}}">
                             <span class="menu-icon">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
