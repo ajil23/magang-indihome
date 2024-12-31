@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\SectorController;
 use App\Http\Controllers\admin\TransactionTypeController;
 use App\Http\Controllers\admin\UserManagementController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\sales\VisitController;
 use App\Http\Controllers\SalesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('data-sales/{id}', [DataSalesController::class, 'delete'])->name('data_sales.delete');
     });
     Route::group(['middleware' => ['logincheck:sales']], function () {
+        // dashboard
         Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
+        
+        // visit
+        Route::get('visit', [VisitController::class, 'index'])->name('visit.index');
+        Route::post('visit/store', [VisitController::class, 'store'])->name('visit.store');
+        Route::put('visit/{id}', [VisitController::class, 'update'])->name('visit.update');
+        Route::delete('visit/{id}', [VisitController::class, 'delete'])->name('visit.delete');
+
     });
 });
