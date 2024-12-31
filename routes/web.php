@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\DataSalesController;
 use App\Http\Controllers\admin\SectorController;
 use App\Http\Controllers\admin\TransactionTypeController;
 use App\Http\Controllers\admin\UserManagementController;
+use App\Http\Controllers\admin\VisitController as AdminVisitController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\sales\VisitController;
 use App\Http\Controllers\SalesController;
@@ -57,6 +58,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('data-sales/store', [DataSalesController::class, 'store'])->name('data_sales.store');
         Route::put('data-sales/{id}', [DataSalesController::class, 'update'])->name('data_sales.update');
         Route::delete('data-sales/{id}', [DataSalesController::class, 'delete'])->name('data_sales.delete');
+        
+        // visit
+        Route::get('recap-visit', [AdminVisitController::class, 'index'])->name('recap_visit.index');
     });
     Route::group(['middleware' => ['logincheck:sales']], function () {
         // dashboard

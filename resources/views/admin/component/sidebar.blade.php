@@ -70,6 +70,7 @@
                                 <li><a href="{{ route('data_sales.index') }}">Data Sales</a></li>
                                 <li><a href="{{ route('sector.index') }}">Sector Category</a></li>
                                 <li><a href="{{ route('transaction.index') }}">Transaction Type</a></li>
+                                <li><a href="{{ route('recap_visit.index') }}">Sales Visit</a></li>
                             </ul>
                         </div>
                     </li>

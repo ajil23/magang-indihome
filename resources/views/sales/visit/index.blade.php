@@ -59,8 +59,8 @@
                                         <td class="text-muted">{{ $item->sector->name }}</td>
                                         <td class="text-muted">{{ $item->address }}</td>
                                         <td class="text-muted">{{ $item->date }}</td>
-                                        <td class="text-muted">{{ $item->description ? 'sudah' : 'belum'}}</td>
-                                        <td class="text-muted">{{ $item->file ? 'sudah' : 'belum'}}</td>
+                                        <td class="text-muted">{{ $item->description ? 'sudah' : 'belum' }}</td>
+                                        <td class="text-muted">{{ $item->file ? 'sudah' : 'belum' }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button
@@ -73,15 +73,23 @@
                                                     <!-- Edit option -->
                                                     <li>
                                                         <a class="dropdown-item" href="javascript:void(0)" id="edit-btn"
-                                                            data-id="{{ $item->id }}" data-bs-toggle="modal"
+                                                            data-id="{{ $item->id }}"
+                                                            data-sales-id="{{ $item->data_sales_id }}"
+                                                            data-transaction-type-id="{{ $item->transaction_type_id }}"
+                                                            data-sector-id="{{ $item->sector_id }}"
+                                                            data-location="{{ $item->location }}"
+                                                            data-address="{{ $item->address }}"
+                                                            data-date="{{ $item->date }}" data-pic="{{ $item->pic }}"
+                                                            data-description="{{ $item->description }}"
+                                                            data-bs-toggle="modal"
                                                             data-bs-target="#updateVisitModal">Edit</a>
                                                     </li>
 
                                                     <!-- Delete option -->
                                                     <li>
-                                                        <form action="{{ route('sector.delete', $item->id) }}"
+                                                        <form action="{{ route('visit.delete', $item->id) }}"
                                                             method="POST"
-                                                            onsubmit="return confirm('Are you sure you want to delete this sector?');">
+                                                            onsubmit="return confirm('Are you sure you want to delete this visit?');">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="dropdown-item text-danger"
@@ -123,7 +131,8 @@
                                     <select class="form-select" name="data_sales_id" id="data_sales_id">
                                         <option value="">Choose Sales Name</option>
                                         @foreach ($sales as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}/{{ $item->code }}</option>
+                                            <option value="{{ $item->id }}">{{ $item->name }}/{{ $item->code }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -172,7 +181,7 @@
                                     <input type="file" class="form-control" id="file" name="file" required>
                                 </div>
                             </div>
-                            
+
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea class="form-control" name="description" id="description"></textarea>
@@ -190,7 +199,7 @@
         <!-- Modal Edit -->
         <div class="modal fade" id="updateVisitModal" tabindex="-1" aria-labelledby="updateVisitModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <form action="#" method="POST" enctype="multipart/form-data" id="updateVisitForm">
                         @csrf
@@ -201,17 +210,69 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="update_name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="update_name" name="name" required>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="data_sales_id" class="form-label">Sales Name</label>
+                                    <select class="form-select" name="data_sales_id" id="update_data_sales_id">
+                                        <option value="">Choose Sales Name</option>
+                                        @foreach ($sales as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}/{{ $item->code }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="transaction_type_id" class="form-label">Transaction Type</label>
+                                    <select class="form-select" name="transaction_type_id"
+                                        id="update_transaction_type_id">
+                                        <option value="">Choose Transaction Type</option>
+                                        @foreach ($transaction as $item)
+                                            <option value="{{ $item->id }}">{{ $item->service }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="sector_id" class="form-label">Sector</label>
+                                    <select class="form-select" name="sector_id" id="update_sector_id">
+                                        <option value="">Choose Sector</option>
+                                        @foreach ($sector as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="update_image" class="form-label">Image</label>
-                                <input type="file" class="form-control" id="update_image" name="image">
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="location" class="form-label">Location</label>
+                                    <input type="text" class="form-control" id="update_location" name="location"
+                                        >
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="update_address" name="address"
+                                        >
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="date" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="update_date" name="date" >
+                                </div>
                             </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="pic" class="form-label">Pic</label>
+                                    <input type="text" class="form-control" id="update_pic" name="pic" >
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="file" class="form-label">File</label>
+                                    <input type="file" class="form-control" id="update_file" name="file" >
+                                </div>
+                            </div>
+
                             <div class="mb-3">
-                                <label for="update_sub" class="form-label">Sub Sector</label>
-                                <input type="text" class="form-control" id="update_sub" name="sub" required>
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" name="description" id="update_description"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -228,24 +289,75 @@
 
 @section('script')
     <script>
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     var editButtons = document.querySelectorAll('#edit-btn');
-        //     editButtons.forEach(function(button) {
-        //         button.addEventListener('click', function() {
-        //             var id = this.getAttribute('data-id');
-        //             var name = this.getAttribute('data-name');
-        //             var sub = this.getAttribute('data-sub');
-        //             var formAction = '{{ route('sector.update', ':id') }}';
-        //             formAction = formAction.replace(':id', id);
+        document.addEventListener('DOMContentLoaded', function() {
+            var editButtons = document.querySelectorAll('#edit-btn');
+            editButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    // Ambil data dari tombol edit
+                    var id = this.getAttribute('data-id');
+                    var data_sales_id = this.getAttribute('data-sales-id');
+                    var transaction_type_id = this.getAttribute('data-transaction-type-id');
+                    var sector_id = this.getAttribute('data-sector-id');
+                    var location = this.getAttribute('data-location');
+                    var address = this.getAttribute('data-address');
+                    var date = this.getAttribute('data-date');
+                    var pic = this.getAttribute('data-pic');
+                    var description = this.getAttribute('data-description');
 
-        //             document.getElementById('updateVisitForm').action = formAction;
-        //             document.getElementById('update_name').value = name;
-        //             document.getElementById('update_sub').value = sub;
+                    // Debug: Log semua nilai yang diambil
+                    console.log('ID:', id);
+                    console.log('Sales ID:', data_sales_id);
+                    console.log('Transaction Type ID:', transaction_type_id);
+                    console.log('Sector ID:', sector_id);
+                    console.log('Location:', location);
+                    console.log('Address:', address);
+                    console.log('Date:', date);
+                    console.log('PIC:', pic);
+                    console.log('Description:', description);
 
-        //             var updateModal = new bootstrap.Modal(document.getElementById('updateVisitModal'));
-        //             updateModal.show();
-        //         });
-        //     });
-        // });
+                    // Set form action
+                    var formAction = '{{ route('visit.update', ':id') }}';
+                    formAction = formAction.replace(':id', id);
+                    document.getElementById('updateVisitForm').action = formAction;
+
+                    // Set nilai untuk setiap elemen form
+                    setTimeout(function() {
+                        // Set nilai untuk dropdown
+                        var salesSelect = document.getElementById('update_data_sales_id');
+                        if (salesSelect) {
+                            salesSelect.value = data_sales_id;
+                            console.log('Sales Select Value Set:', data_sales_id);
+                        }
+
+                        var transactionSelect = document.getElementById(
+                            'update_transaction_type_id');
+                        if (transactionSelect) {
+                            transactionSelect.value = transaction_type_id;
+                            console.log('Transaction Select Value Set:',
+                                transaction_type_id);
+                        }
+
+                        var sectorSelect = document.getElementById('update_sector_id');
+                        if (sectorSelect) {
+                            sectorSelect.value = sector_id;
+                            console.log('Sector Select Value Set:', sector_id);
+                        }
+
+                        // Set nilai untuk input fields
+                        document.getElementById('update_location').value = location || '';
+                        document.getElementById('update_address').value = address || '';
+                        document.getElementById('update_date').value = date || '';
+                        document.getElementById('update_pic').value = pic || '';
+                        document.getElementById('update_description').value = description ||
+                            '';
+                    }, 100);
+
+                    // Tampilkan modal
+                    var updateModal = new bootstrap.Modal(document.getElementById(
+                        'updateVisitModal'));
+                    updateModal.show();
+                });
+            });
+        });
     </script>
 @endsection

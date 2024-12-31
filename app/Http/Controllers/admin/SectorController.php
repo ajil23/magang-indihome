@@ -87,4 +87,5 @@ class SectorController extends Controller
         // Kembalikan respon
         return redirect()->route('sector.index')->with('success', 'Sector successfully deleted.');
     }
+    
 }
