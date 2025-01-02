@@ -60,7 +60,10 @@
                                         <td class="text-muted">{{ $item->address }}</td>
                                         <td class="text-muted">{{ $item->date }}</td>
                                         <td class="text-muted">{{ $item->description ? 'sudah' : 'belum' }}</td>
-                                        <td class="text-muted">{{ $item->file ? 'sudah' : 'belum' }}</td>
+                                        <td>
+                                            <img src="{{ asset('storage/' . $item->file) }}" alt="{{ $item->name }}"
+                                                width="50" height="50">
+                                        </td>
                                         <td>
                                             <div class="dropdown">
                                                 <button
@@ -70,6 +73,21 @@
                                                     <i class="ri-more-2-line"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown" aria-labelledby="dropdownOrder-0">
+                                                    <!-- View option -->
+                                                    <li>
+                                                        <a class="dropdown-item" href="javascript:void(0)" id="view-btn"
+                                                            data-id="{{ $item->id }}"
+                                                            data-sales-id="{{ $item->data_sales_id }}"
+                                                            data-transaction-type-id="{{ $item->transaction_type_id }}"
+                                                            data-sector-id="{{ $item->sector_id }}"
+                                                            data-location="{{ $item->location }}"
+                                                            data-address="{{ $item->address }}"
+                                                            data-date="{{ $item->date }}" data-pic="{{ $item->pic }}"
+                                                            data-description="{{ $item->description }}" data-file="{{ $item->file }}"
+                                                            data-bs-toggle="modal" data-bs-target="#viewVisitModal">
+                                                            View
+                                                        </a>
+                                                    </li>
                                                     <!-- Edit option -->
                                                     <li>
                                                         <a class="dropdown-item" href="javascript:void(0)" id="edit-btn"
@@ -114,15 +132,80 @@
             </div>
         </div>
 
+        <!-- Modal View -->
+        <div class="modal fade" id="viewVisitModal" tabindex="-1" aria-labelledby="viewVisitModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewVisitModalLabel">View Visit</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="view_data_sales_id" class="form-label">Sales Name</label>
+                                <input type="text" class="form-control" id="view_data_sales_id" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="view_transaction_type_id" class="form-label">Transaction Type</label>
+                                <input type="text" class="form-control" id="view_transaction_type_id" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="view_sector_id" class="form-label">Sector</label>
+                                <input type="text" class="form-control" id="view_sector_id" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="view_location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="view_location" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="view_address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="view_address" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="view_date" class="form-label">Date</label>
+                                <input type="text" class="form-control" id="view_date" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="view_pic" class="form-label">Pic</label>
+                                <input type="text" class="form-control" id="view_pic" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="view_file" class="form-label">File</label>
+                                <img src="" id="view_file" alt="Proof" class="img-fluid"
+                                    style="max-width: 200px;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="view_description" class="form-label">Description</label>
+                            <textarea class="form-control" id="view_description" readonly></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Modal Add -->
-        <div class="modal fade" id="addVisitModal" tabindex="-1" aria-labelledby="addVisitModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addVisitModal" tabindex="-1" aria-labelledby="addVisitModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <form action="{{ route('visit.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title" id="addVisitModalLabel">Add Visit</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row mb-3">
@@ -245,28 +328,26 @@
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label for="location" class="form-label">Location</label>
-                                    <input type="text" class="form-control" id="update_location" name="location"
-                                        >
+                                    <input type="text" class="form-control" id="update_location" name="location">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="address" class="form-label">Address</label>
-                                    <input type="text" class="form-control" id="update_address" name="address"
-                                        >
+                                    <input type="text" class="form-control" id="update_address" name="address">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="date" class="form-label">Date</label>
-                                    <input type="date" class="form-control" id="update_date" name="date" >
+                                    <input type="date" class="form-control" id="update_date" name="date">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="pic" class="form-label">Pic</label>
-                                    <input type="text" class="form-control" id="update_pic" name="pic" >
+                                    <input type="text" class="form-control" id="update_pic" name="pic">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="file" class="form-label">File</label>
-                                    <input type="file" class="form-control" id="update_file" name="file" >
+                                    <input type="file" class="form-control" id="update_file" name="file">
                                 </div>
                             </div>
 
@@ -288,6 +369,45 @@
 @endsection
 
 @section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var viewButtons = document.querySelectorAll('#view-btn');
+            viewButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    // Ambil data dari tombol view
+                    var id = this.getAttribute('data-id');
+                    var data_sales_id = this.getAttribute('data-sales-id');
+                    var transaction_type_id = this.getAttribute('data-transaction-type-id');
+                    var sector_id = this.getAttribute('data-sector-id');
+                    var location = this.getAttribute('data-location');
+                    var address = this.getAttribute('data-address');
+                    var date = this.getAttribute('data-date');
+                    var pic = this.getAttribute('data-pic');
+                    var description = this.getAttribute('data-description');
+                    var file = this.getAttribute('data-file'); // Ambil nama file
+
+                    // Set nilai untuk setiap elemen modal
+                    document.getElementById('view_data_sales_id').value = data_sales_id;
+                    document.getElementById('view_transaction_type_id').value = transaction_type_id;
+                    document.getElementById('view_sector_id').value = sector_id;
+                    document.getElementById('view_location').value = location;
+                    document.getElementById('view_address').value = address;
+                    document.getElementById('view_date').value = date;
+                    document.getElementById('view_pic').value = pic;
+                    document.getElementById('view_description').value = description;
+
+                    // Tampilkan gambar jika ada
+                    if (file) {
+                        var filePath = "{{ asset('storage/') }}/" + file;
+                        document.getElementById('view_file').src = filePath;
+                    } else {
+                        document.getElementById('view_file').src =
+                        ''; // Kosongkan jika tidak ada file
+                    }
+                });
+            });
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var editButtons = document.querySelectorAll('#edit-btn');
